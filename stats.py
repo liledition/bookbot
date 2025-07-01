@@ -1,5 +1,16 @@
+import sys
+
+def get_path():
+    arguments = sys.argv
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        path = sys.argv[1]
+        return path
+
 def get_book_text():
-    f = open("books/frankenstein.txt")
+    f = open(get_path())
     file_contents = f.read()
     return file_contents
 
@@ -22,8 +33,8 @@ def character_count():
                 character_list[c] += 1
     return character_list
 
-def main():
+def sotr_by_count():
     list = character_count()
-    return print(list)
-
-main()
+    result = sorted(list.items(), reverse=True, key=lambda x: x[1])
+    dict = '\n'.join(f"{char}: {num}" for char, num in result[0:])
+    return dict
